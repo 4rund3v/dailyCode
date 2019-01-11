@@ -13,3 +13,5 @@ Problem 6: XOR linked list
 Problem 7: Decode  the message with total number of possiblities
 Problem 8: Count the number of unival trees
 Problem 9: largest sum of non adjacent numbers
+Problem 10: JOB SCHEDULER 
+Problem 11: Sting Sub matching
