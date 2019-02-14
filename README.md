@@ -30,9 +30,10 @@ Problem 10: JOB SCHEDULER
 
 Problem 11: Sting Sub matching
 
+Problem 37: PowerSet for a set of items 
 
+Problem 42 : Subset as a sum
 
-Problems Solved: 
+Problem 43: Implementing a stack
 
-
-Problem 7:
+Problem 44: Out of order an array
