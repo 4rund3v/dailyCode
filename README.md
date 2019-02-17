@@ -32,6 +32,10 @@ Problem 11: Sting Sub matching
 
 Problem 37: PowerSet for a set of items 
 
+Problem 38: N Queens Problem (NOCLUE) 
+
+Problem 39: Conways Game of life (NOCLUE) 
+
 Problem 42 : Subset as a sum
 
 Problem 43: Implementing a stack
