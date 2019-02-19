@@ -5,7 +5,7 @@ Daily Code Problems
 The solutions to the daily code challenges from the website Daily Coding Problem
 
 
-Problems to Solve: 
+Problems Solved: 
 
 
 Problem 1: Sum of elements in a array
@@ -41,3 +41,8 @@ Problem 42 : Subset as a sum
 Problem 43: Implementing a stack
 
 Problem 44: Out of order an array
+
+
+Problem 47: Max stock profit
+
+Problem 49: Largest sub array sum
