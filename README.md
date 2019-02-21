@@ -42,7 +42,10 @@ Problem 43: Implementing a stack
 
 Problem 44: Out of order an array
 
-
 Problem 47: Max stock profit
 
 Problem 49: Largest sub array sum
+
+Problem 50: Inorder Traversal of Tree, (+,-,*,/)
+
+Problem 51: Shuffle deck of cards
