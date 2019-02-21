@@ -49,3 +49,6 @@ Problem 49: Largest sub array sum
 Problem 50: Inorder Traversal of Tree, (+,-,*,/)
 
 Problem 51: Shuffle deck of cards
+
+Problem 52: Implement a LRU cache
+
