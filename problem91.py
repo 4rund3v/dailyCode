@@ -5,6 +5,16 @@ functions = []
 for i in range(10):
     functions.append(lambda : i)
 
-for f in functions:
+fo f in functions:
     print(f())
 """
+import copy
+
+functions = []
+for i in range(10):
+    temp = i
+    s = copy.deepcopy(temp)
+    functions.append(lambda : s)
+
+for f in functions:
+    print(f())
