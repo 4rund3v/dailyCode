@@ -30,7 +30,6 @@ def solution(n):
         while(x): 
             sum = sum + x % 10
             x = x // 10
-
         if (sum == 10): 
             count = count + 1
         if (count == n): 

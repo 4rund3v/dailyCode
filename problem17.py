@@ -31,3 +31,75 @@ The name of a file contains at least a period and an extension.
 The name of a directory or sub-directory will not contain a period.
 
 '''
+
+def currentPathLength(pathStack):
+    return sum([len(x) for x in pathStack])
+
+def longestAbsolutePath(fileSystemString):
+    entities = fileSystemString.split("\n")
+    
+    if len(entities) == 0:
+        print("")
+        return
+
+    pathStack = []
+
+    rootFolder = entities.pop(0)
+    pathStack.append(rootFolder)
+
+    longestPath = rootFolder
+    longestPathLength = len(rootFolder)
+
+    currentDepth = 0
+
+    for entity in entities:
+        currentEntityDepth = entity.count("\t")
+        entity = entity.strip("\t")
+        if "." in entity:
+            # Entity is a file
+            if currentEntityDepth != currentDepth + 1:
+                differenceInDepth = abs(currentDepth - currentEntityDepth)
+                for _ in range(differenceInDepth):
+                    pathStack.pop()
+                    currentDepth -= 1
+            
+            # Uncomment to print every absolute path
+            # print("\\"+"\\".join(pathStack)+"\\"+entity)
+            
+            if currentPathLength(pathStack) + len(entity) > longestPathLength:
+                longestPath = "\\".join(pathStack) + "\\" + entity
+                longestPathLength = len(longestPath)
+            
+        else:
+            # Entity is a dir
+            if currentEntityDepth != currentDepth + 1:
+                differenceInDepth = abs(currentDepth - currentEntityDepth)
+                for _ in range(differenceInDepth+1):
+                    pathStack.pop()
+                    currentDepth -= 1
+            
+            pathStack.append(entity)
+            currentDepth += 1
+
+
+    return "\\" + longestPath.replace("\t","")
+
+def main():
+    print(longestAbsolutePath("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"))
+    print(longestAbsolutePath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"))
+    print(longestAbsolutePath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tparent\n\t\tsubdir2\n\t\t\tsubsubdir2\n\t\t\t\tfile2.ext\n\t\tchild.as"))
+    
+    """
+    dir
+    subdir1
+        file1.ext
+        subsubdir1
+    parent
+        subdir2
+            subsubdir2
+                file2.ext
+        child.txt
+    """
+
+if __name__ == "__main__":
+    main()
