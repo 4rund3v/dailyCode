@@ -20,60 +20,90 @@ You should return the following tree:
  / \ / \
 d  e f  g   
 """
+class Node:
+    def __init__(self, val, left = None, right =None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Utility function to print a tree's preorder
+def preorder(rootNode):
+    if rootNode is None:
+        return ""
+
+    return rootNode.val + preorder(rootNode.left) + preorder(rootNode.right)
+
+# Utility function to print a tree's inorder
+def inorder(rootNode):
+    if rootNode is None:
+        return ""
+
+    return inorder(rootNode.left) + rootNode.val + inorder(rootNode.right)
 
 
-class Node(object):
-    def __init__(self):
-        self.left = None
-        self.right = None
-        self.value = None
-
-
-def print_preorder(root_node):
-    """
-      Given a root node, prints the preorder traversal of that node
-      Pre order traversal:
-          Root --> Left --> Right
-      Use cases :
-          Prefix mathematical expressions
-                       + 2 3
-          Copying a tree
-    """
-    if root_node:
-        print('  {}  '.format(root_node.value))
-        print_preorder(root_node.left)
-        print_preorder(root_node.right)
-    return
-
-
-def print_inorder(root_node):
+def constructTree(preorder, inorder):
     '''
-     Given a root node, prints the inorder traversal of the node
-     Inorder traversal :
-          Left -> Root -> Right
-     Usecases :
-        Binary search trees
+    The tree can be reconstructed from the Preorder + Inorder
+    First, we know that Preorder is Root, Left, Right
+    Inorder is Left, Root, Right
+    So, the first node appearing in the Preorder is the root. We can then
+    find this element in the Inorder. Nodes before this element will be
+    part of the left sub-tree, while nodes to the right are part of
+    right sub-tree. Recursively do this until we finish iterating 
+    over the preorder.
+    Note: At each iteration, once we find the left and right subtrees, we will
+    need to filter the entire preorder list so that it does not contain unknowns
+    i.e. there should not be an element existing in preorder and not inorder
     '''
-    if root_node:
-        print_inorder(root_node.left)
-        print('  {}  '.format(root_node.value))
-        print_inorder(root_node.right)
-    return
+
+    # If we don't have an element, return None
+    if not preorder:
+        return None
+
+    rootElement = Node(val = preorder[0])
+    rootPositionInorder = inorder.index(rootElement.val)
+
+    # Divide into 2 sublists
+    leftSubtreeInorder = inorder[0 : rootPositionInorder]
+    rightSubtreeInorder = inorder[rootPositionInorder + 1 : len(inorder)]
+
+    # Filter the preorder for left subtree in the same order
+    leftSubtreePreorder = []
+    for element in preorder:
+        if element in leftSubtreeInorder:
+            leftSubtreePreorder.append(element)
+
+    # Filter the preorder for right subtree in the same order
+    rightSubtreePreorder = []
+    for element in preorder:
+        if element in rightSubtreeInorder:
+            rightSubtreePreorder.append(element)
+
+    # Set the left and right children via recursion
+    rootElement.left = constructTree(preorder = leftSubtreePreorder, inorder = leftSubtreeInorder)
+    rootElement.right = constructTree(preorder = rightSubtreePreorder, inorder = rightSubtreeInorder)
+    
+    return rootElement
 
 
-def print_postorder(root_node):
-    """
-     Given a root node, prints the postorder traversal of it.
-     PostOrder Traversal:
-         Left --> Right --> Root
-     Use cases:
-         Postfix mathematical operations
-                                 2 9 *
-         While deleting a tree, should follow this approach
-    """
-    if root_node:
-        print_postorder(root_node.left)
-        print_postorder(root_node.right)
-        print('  {}  '.format(root_node.value))
-    return
+# Test Cases
 
+## Example
+tree = constructTree(preorder = ['a', 'b', 'd', 'e', 'c', 'f', 'g'], inorder = ['d', 'b', 'e', 'a', 'f', 'c', 'g'])
+assert preorder(tree) == "abdecfg"
+assert inorder(tree) == "dbeafcg"
+
+## Left tree
+tree = constructTree(preorder = ['a', 'b', 'c', 'd', 'e', 'f'], inorder = ['f', 'e', 'd', 'c', 'b', 'a'])
+assert preorder(tree) == "abcdef"
+assert inorder(tree) == "fedcba"
+
+## Right tree
+tree = constructTree(preorder = ['a', 'b', 'c', 'd', 'e', 'f'], inorder = ['a', 'b', 'c', 'd', 'e', 'f'])
+assert preorder(tree) == "abcdef"
+assert inorder(tree) == "abcdef"
+
+## Left Right Left Right Left
+tree = constructTree(preorder = ['a', 'b', 'c', 'd', 'e', 'f'], inorder = ['b', 'a', 'd', 'c', 'f', 'e'])
+assert preorder(tree) == "abcdef"
+assert inorder(tree) == "badcfe"

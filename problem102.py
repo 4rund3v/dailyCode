@@ -20,7 +20,7 @@ def solution(num_list, ksum):
                     return res
             else:
                 break
-    return []
+    return res
 
 
 num_list = [1,2,3,4,5,6]
