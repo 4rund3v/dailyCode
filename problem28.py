@@ -18,3 +18,58 @@ For example, given the list of words ["the", "quick", "brown", "fox", "jumps", "
 "fox  jumps  over", # 2 extra spaces distributed evenly
 "the   lazy   dog"] # 4 extra spaces distributed evenly
 '''
+
+def justify(wordList, k):
+    print(wordList)
+    justifiedLineList = []
+    currentWordList = []
+    currentLength = 0
+    while True:
+        newWordFlag = False
+        if wordList:
+            newWordFlag = True
+            currentWord = wordList.pop(0)
+        if currentLength + len(currentWord) + 1 <= k+1 and newWordFlag:
+            currentWordList.append(currentWord)
+            currentLength += len(currentWord) + 1
+        else:
+            unusedSpace = k-(currentLength-1)
+            try:
+                extraEvenSpaces = unusedSpace // (len(currentWordList)-1)
+            except:
+                break
+            currentSpaceList = ["-"]*(len(currentWordList)-1)
+            for i in range(len(currentSpaceList)):
+                currentSpaceList[i] += "-"*extraEvenSpaces
+            extraUnevenSpaces = unusedSpace%len(currentSpaceList)
+            for i in range(extraUnevenSpaces):
+                currentSpaceList[i] += "-"
+            currentLine = ""
+            while currentSpaceList:
+                currentLine += currentWordList.pop(0) + currentSpaceList.pop(0)
+            currentLine += currentWordList.pop(0)
+            justifiedLineList.append(currentLine)
+            if newWordFlag:
+                currentWordList = [currentWord]
+                currentLength = len(currentWord) + 1
+            if not wordList:
+                break
+    if currentWordList:
+        lastLine = currentWordList[0] + "-"*(k-len(currentWordList[0]))
+        justifiedLineList.append(lastLine)
+    return justifiedLineList
+
+def printJustifiedText(justifiedLineList):
+    for line in justifiedLineList:
+        print(line)
+    print()
+
+
+if __name__ == "__main__":
+    wordList = ["the", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"]
+    k = 16
+
+    while wordList:
+        tempWordList = wordList[:]
+        printJustifiedText(justify(tempWordList, k))
+        wordList.pop()

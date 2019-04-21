@@ -12,3 +12,30 @@ For example,
  a sorted list has zero inversions.
  The array [2, 4, 1, 3, 5] has three inversions: (2, 1), (4, 1), and (4, 3).
   The array [5, 4, 3, 2, 1] has ten inversions: every distinct pair forms an inversion."""
+
+from copy import copy
+def solution(arr):
+    """
+    >>> solution([1, 2, 3, 4, 5])
+    0
+    >>> solution([2, 4, 1, 3, 5])  # inversions: (2, 1), (4, 1), (4, 3)
+    3
+    >>> solution([5, 4, 3, 2, 1])  # every distinct pair forms an inversion
+    10
+    """
+    
+    inversions = 0
+    sorted_indexes = [xi[1] for xi in sorted(zip(arr, range(len(arr))), cmp=lambda x, y: cmp(x[0], y[0]))]
+    for index in range(len(sorted_indexes)):
+
+        destination = sorted_indexes.index(index)
+        sorted_indexes.remove(index)
+        inversions += destination
+
+    return inversions
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
+    pass

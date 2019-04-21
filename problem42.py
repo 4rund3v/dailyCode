@@ -14,15 +14,30 @@ For example, given S = [12, 1, 61, 5, 9, 2] and k = 24, return [12, 9, 2, 1] sin
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-def subset(elem_list, total):
-    vals = []
-    index = elem_list
-    def calculate_sum(csum=0):
-        pass
-    return vals
+ansSubArr = None
+
+def findSubArrRecursively(arr, subArr, targetSum, index):
+    global ansSubArr
+    # Set answer and return
+    if sum(subArr) == targetSum:
+        ansSubArr = subArr
+        return
+    # Return if answer has been found or if sum has exceeded the target sum.
+    if ansSubArr or sum(subArr)>targetSum:
+        return
+    # If there are any more elements left, make two recursive calls. 
+    #   -> One call including the next element
+    #   -> Once call without the next element
+    if index < len(arr):
+        findSubArrRecursively(arr, subArr+[arr[index]], targetSum, index+1)
+        findSubArrRecursively(arr, subArr, targetSum, index+1)
+
+
+def findSubArrWithSum(arr, targetSum):
+    findSubArrRecursively(arr, [], targetSum, 0)
+    return ansSubArr
 
 if __name__ == "__main__":
-    input_list =  [12, 1, 61, 5, 9, 2] # S
-    total = 24 # k
-    print('Input data is : S - {} \n k - {} '.format(input_list, total))
-    solution = subset(sorted(input_list), total)
+    arr = [12, 1, 61, 5, 9, 2]
+    targetSum = 24
+    print(findSubArrWithSum(arr,targetSum))

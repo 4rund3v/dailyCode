@@ -12,3 +12,20 @@ Given the list of flights [('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'A')] and s
  you should return the list ['A', 'B', 'C', 'A', 'C'] even though ['A', 'C', 'A', 'B', 'C'] is also a valid itinerary.
   However, the first one is lexicographically smaller.
 """
+def getItinerary(flights, currentItinerary):
+    if not flights:
+        return currentItinerary
+    lastStop = currentItinerary[-1]
+    for i, (source, dest) in enumerate(flights):
+        flightsMinusCurrent = flights[:i] + flights[i+1:]
+        currentItinerary.append(dest)
+        if source == lastStop:
+            return getItinerary(flightsMinusCurrent, currentItinerary)
+        currentItinerary.pop()
+    return None
+
+if __name__ == "__main__":
+    flights = [("HNL", "AKL"), ("YUL", "ORD"), ("ORD", "SFO"), ("SFO", "HNL")]
+    source = "YUL"
+
+    print(" -> ".join(getItinerary(flights, [source])))
