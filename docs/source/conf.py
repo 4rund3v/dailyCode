@@ -17,12 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Daily Code'
-copyright = '2019, Arun Dev'
-author = 'Arun Dev'
+project = 'Daily Coding Problem'
+copyright = '2020, Arun Dev P'
+author = 'Arun Dev P'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------

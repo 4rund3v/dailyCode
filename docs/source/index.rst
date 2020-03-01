@@ -1,10 +1,10 @@
-.. Daily Code documentation master file, created by
-   sphinx-quickstart on Tue Dec  3 22:40:21 2019.
+.. Daily Coding Problem documentation master file, created by
+   sphinx-quickstart on Sun Feb 16 18:48:30 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Daily Code's documentation!
-======================================
+Welcome to Daily Coding Problem's documentation!
+================================================
 
 .. toctree::
    :maxdepth: 2
