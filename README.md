@@ -5,7 +5,7 @@
 ### Batches are the sets of the problems that are solved
 Batches represent the 100 problems in that bracket
  - [x] Batch 0
- - [ ] Batch 1
+ - [x] Batch 1
  - [ ] Batch 2
  - [ ] Batch 3
  - [ ] Batch 4
